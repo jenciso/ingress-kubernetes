@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-demo
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - nginx-demo.paas.enciso.website
+  rules:
+  - host: nginx-demo.paas.enciso.website
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-demo
+          servicePort: 80
