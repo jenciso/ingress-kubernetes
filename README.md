@@ -1,3 +1,17 @@
+## Kube setup
+
+```
+export user=admin
+export pass=s3cr3t
+export env_site=lab
+```
+
+```
+kubectl config set-credentials $user --username=$user --password=$pass
+kubectl config set-cluster $env_site --server=https://apik8s.enciso.website:6443 --insecure-skip-tls-verify
+kubectl config set-context k8s-$env_site --cluster=$env_site --user=$user
+``` 
+
 ## Ingress install
 
 Install
@@ -36,6 +50,18 @@ Add IP alias
 ```
 ip a add 192.168.56.20/24 dev enp0s8
 ```
+
+```
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=enp0s8:0
+DEVICE=enp0s8:0
+ONBOOT=yes
+IPADDR=192.168.56.20
+PREFIX=24
+```
+
+
 Insert configuration into the haproxy.cfg
 
 ```
@@ -57,3 +83,4 @@ backend ingress-443
     mode tcp
     server ingress 10.0.2.20:443 check
 ```
+
